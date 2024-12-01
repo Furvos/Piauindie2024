@@ -1,41 +1,41 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class TreeBehaviour : MonoBehaviour
 {
-	public SpriteRenderer spriteRenderer;
-	public Sprite newSprite;
 	public bool underRain;
 	[SerializeField] float age;
-	public int playerStage;
+	public int treeStage;
+
 	private void Start()
 	{
 		age = 0;
+		treeStage = 0;
 	}
 	private void Update()
 	{
 		//verify rain:
-		if (underRain)
-		{
-			Debug.Log("Player Under Rain!");
+		if (underRain){
+			Debug.Log("Plant Under Rain!");
 		}
-		else if (!underRain)
-		{
+		else if (!underRain) {
 			age += Time.deltaTime;
-			Debug.Log("Player Out of Rain");
+			Debug.Log("Plant Out of Rain");
 		}
+
 		if (age >= 10)
 		{
-			playerStage = 1;
+			treeStage = 1;
 		}
 		else if (age >= 20)
 		{
-			playerStage = 2;
+			treeStage = 2;
 		}
 		else if (age >= 25)
 		{
-			playerStage = 3;
+			treeStage = 3;
 		}
-		
+
 	}
 	void OnTriggerStay(Collider other)
 	{

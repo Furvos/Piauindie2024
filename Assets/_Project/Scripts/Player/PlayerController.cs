@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
 	//CÓDIGO NOVO QUE PESQUEI DO STACKOVERFLOW https://stackoverflow.com/questions/67654629/i-wrote-a-script-for-movement-and-mouse-look-movement-works-but-mouse-look-does
 
+	public bool underRain;
 	[SerializeField] private float _speed = 7f;
 	[SerializeField] private float _mouseSensitivity = 50f;
 	[SerializeField] private float _minCameraview = -70f, _maxCameraview = 80f;
@@ -29,8 +30,6 @@ public class PlayerController : MonoBehaviour
 		Vector3 movement = transform.forward * vertical + transform.right * horizontal; //changed this line.
 		_charController.Move(movement * Time.deltaTime * _speed);
 
-
-
 		//Get Mouse position Input
 		float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity; //changed this line.
 		float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity; //changed this line.
@@ -43,6 +42,31 @@ public class PlayerController : MonoBehaviour
 		//Rotate the player based on the X input of the mouse
 		transform.Rotate(Vector3.up * mouseX * 3);
 
+		//verify rain:
+		if (underRain)
+		{
+			Debug.Log("Player Under Rain!");
+		}
+		else
+		{
+			Debug.Log("Player Out of Rain");
+		}
+
+	}
+
+	void OnTriggerStay(Collider other)
+	{
+		if (other.CompareTag("Rain"))
+		{
+			underRain = true;
+		}
+	}
+	void OnTriggerExit(Collider other)
+	{
+		if (other.CompareTag("Rain"))
+		{
+			underRain = false;
+		}
 	}
 
 
